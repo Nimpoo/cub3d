@@ -6,7 +6,11 @@
 /*   By: mayoub <mayoub@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 14:43:16 by Yoshi             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/01/10 18:09:53 by mayoub           ###   ########.fr       */
+=======
+/*   Updated: 2023/01/03 15:00:45 by mayoub           ###   ########.fr       */
+>>>>>>> c5507675181cf40e14d1f56e43c22cd6ebe8c99b
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +26,14 @@
 # include <errno.h>
 
 # include "libft.h"
+<<<<<<< HEAD
 # include "get_next_line.h"
 
 # define STDIN  STDIN_FILENO
 # define STDOUT STDOUT_FILENO
 # define STDERR STDERR_FILENO
+=======
+>>>>>>> c5507675181cf40e14d1f56e43c22cd6ebe8c99b
 
 # define UP		13
 # define DOWN	1
@@ -34,6 +41,7 @@
 # define RIGHT	2
 # define ESC	0x35
 
+<<<<<<< HEAD
 typedef struct s_path{
 	char	*north;
 	char	*south;
@@ -75,5 +83,8 @@ int		ft_path(char *path);
 // src/error/error_arg.c
 void	error_wrong_arguments(int bool, char *str);
 void	error_bad_prefix(void);
+=======
+
+>>>>>>> c5507675181cf40e14d1f56e43c22cd6ebe8c99b
 
 #endif

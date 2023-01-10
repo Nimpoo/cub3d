@@ -6,7 +6,7 @@
 /*   By: mayoub <mayoub@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 13:57:41 by mayoub            #+#    #+#             */
-/*   Updated: 2023/01/08 16:25:07 by mayoub           ###   ########.fr       */
+/*   Updated: 2023/01/09 14:19:32 by mayoub           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ int	pars_extension(char *arg)
 
 int	pars_name(char *arg, int fd)
 {
-	printf("%s\n", arg);
 	if (fd == -1)
 		return (error_wrong_arguments(1, arg), 0);
 	if (!pars_extension(arg))

@@ -1,21 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isspace.c                                       :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mayoub <mayoub@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/04 16:23:58 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/10 15:38:34 by mayoub           ###   ########.fr       */
+/*   Created: 2023/01/10 15:57:01 by mayoub            #+#    #+#             */
+/*   Updated: 2023/01/10 16:01:31 by mayoub           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "../include/cub3d.h"
 
-int	ft_isspace(char c)
+void	ft_struct_game_init(t_game *game)
 {
-	if (c == ' ' || c == '\t' || c == '\v' || c == '\n'
-		|| c == '\r' || c == '\f')
-		return (1);
-	return (0);
+	game->path->north = NULL;
+	game->path->south = NULL;
+	game->path->east = NULL;
+	game->path->west = NULL;
+	game->path->sky = NULL;
+	game->path->floor = NULL;
 }

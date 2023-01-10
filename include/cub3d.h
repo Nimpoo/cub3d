@@ -6,7 +6,7 @@
 /*   By: mayoub <mayoub@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 14:43:16 by Yoshi             #+#    #+#             */
-/*   Updated: 2023/01/08 16:01:46 by mayoub           ###   ########.fr       */
+/*   Updated: 2023/01/10 16:00:10 by mayoub           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <errno.h>
 
 # include "libft.h"
+# include "get_next_line.h"
 
 # define STDIN  STDIN_FILENO
 # define STDOUT STDOUT_FILENO
@@ -33,10 +34,41 @@
 # define RIGHT	2
 # define ESC	0x35
 
-// src/parsing/pars_args.c
+typedef struct s_path{
+	char	*north;
+	char	*south;
+	char	*west;
+	char	*east;
+	char	*sky;
+	char	*floor;
+}	t_path;
+
+typedef struct s_data{
+	void	*n;
+	void	*s;
+	void	*w;
+	void	*e;
+	void	*f;
+	void	*c;
+}	t_data;
+
+typedef struct s_game{
+	t_data	*data;
+	t_path	*path;
+}	t_game;
+
+// src/init.c
+void	ft_struct_game_init(t_game *game);
+
+
+// src/parsing/pars.c
 int		pars_args(int ac, char **av, int fd);
+
+// src/parsing/map.c
+int		pars_map(int fd, t_game *game);
 
 // src/error/error_arg.c
 void	error_wrong_arguments(int bool, char *str);
+void	error_bad_prefix(void);
 
 #endif

@@ -6,13 +6,13 @@
 #    By: mayoub <mayoub@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/01/03 14:53:38 by Palmi             #+#    #+#              #
-#    Updated: 2023/01/10 16:00:28 by mayoub           ###   ########.fr        #
+#    Updated: 2023/01/10 17:31:45 by mayoub           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compilation variables
 CC		:=	gcc
-FLAGS	:=	-framework Opengl -framework Appkit -lmlx
+FLAGS	:=	-framework Opengl -framework Appkit -lmlx -fsanitize=address
 CFLAGS	:=	-Werror -Wextra -Wall -g
 
 # Name of the final executable
@@ -24,6 +24,7 @@ SRC		:=	src/main.c							\
 \
 			src/parsing/args.c					\
 			src/parsing/map.c					\
+			src/parsing/colors.c				\
 \
 			src/error/error_arg.c				\
 			src/error/error_map.c				\

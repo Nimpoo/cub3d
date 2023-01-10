@@ -6,7 +6,7 @@
 /*   By: mayoub <mayoub@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 15:01:28 by Marwan❤Noah       #+#    #+#             */
-/*   Updated: 2023/01/10 15:58:40 by mayoub           ###   ########.fr       */
+/*   Updated: 2023/01/10 18:13:03 by mayoub           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	main(int ac, char **av)
 		return (1);
 	ft_struct_game_init(&game);
 	if (!pars_map(fd, &game))
+		return (1);
+	if (!pars_colors(&game.path, 1) || !pars_colors(&game.path, 0))
 		return (1);
 	return (0);
 }

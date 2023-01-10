@@ -6,7 +6,7 @@
 /*   By: mayoub <mayoub@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 14:43:16 by Yoshi             #+#    #+#             */
-/*   Updated: 2023/01/10 16:00:10 by mayoub           ###   ########.fr       */
+/*   Updated: 2023/01/10 18:09:53 by mayoub           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,10 @@ typedef struct s_path{
 	char	*south;
 	char	*west;
 	char	*east;
-	char	*sky;
+	char	*ceiling;
 	char	*floor;
+	int		c[3];
+	int		f[3];
 }	t_path;
 
 typedef struct s_data{
@@ -53,19 +55,22 @@ typedef struct s_data{
 }	t_data;
 
 typedef struct s_game{
-	t_data	*data;
-	t_path	*path;
+	t_data	data;
+	t_path	path;
 }	t_game;
 
 // src/init.c
 void	ft_struct_game_init(t_game *game);
 
-
 // src/parsing/pars.c
 int		pars_args(int ac, char **av, int fd);
 
+// src/parsing/colors.c
+int		pars_colors(t_path *path, int b);
+
 // src/parsing/map.c
 int		pars_map(int fd, t_game *game);
+int		ft_path(char *path);
 
 // src/error/error_arg.c
 void	error_wrong_arguments(int bool, char *str);

@@ -6,34 +6,29 @@
 /*   By: mayoub <mayoub@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 15:01:28 by Marwan❤Noah       #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/01/10 18:13:03 by mayoub           ###   ########.fr       */
-=======
-/*   Updated: 2023/01/03 15:04:16 by mayoub           ###   ########.fr       */
->>>>>>> c5507675181cf40e14d1f56e43c22cd6ebe8c99b
+/*   Updated: 2023/01/11 15:34:57 by mayoub           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-<<<<<<< HEAD
 int	main(int ac, char **av)
 {
 	int		fd;
+	char	*line;
 	t_game	game;
 
 	fd = open(av[1], O_RDONLY);
+	ft_struct_game_init(&game);
 	if (!pars_args(ac, av, fd))
 		return (1);
-	ft_struct_game_init(&game);
-	if (!pars_map(fd, &game))
+	line = pars_path(fd, &game);
+	if (!line)
 		return (1);
 	if (!pars_colors(&game.path, 1) || !pars_colors(&game.path, 0))
 		return (1);
-=======
-int	main(int argc, char **argv)
-{
->>>>>>> c5507675181cf40e14d1f56e43c22cd6ebe8c99b
+	if (!pars_map(fd, &game, line))
+		return (1);
 	return (0);
 }
 

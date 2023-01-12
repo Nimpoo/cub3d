@@ -10,3 +10,5 @@
 
 !/Makefile
 !/.gitignore
+!/minilibx.tgz
+!/dependencies.tgz

@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:54:20 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/12 12:16:07 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/12 13:47:34 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,43 @@ void	ft_add_line(char ***a, const char *line)
 
 int	ft_is_not_a_valid_char(char **map, const int i, const int j)
 {
-	return ((map[i][j] != '0' && map[i][j]
-		!= 'S' && map[i][j] != 'N' && map[i][j] != 'E'
-		&& map[i][j] != 'W') || i == 0 || j == 0
-		|| !map[i][j + 1]
-		|| (map[i - 1] && (ft_strlen(map[i - 1]) <= j
-			|| ft_isspace(map[i - 1][j])))
-		|| (map[i + 1] && (ft_strlen(map[i + 1]) <= j
-			|| ft_isspace(map[i + 1][j])))
-		|| ft_isspace(map[i][j - 1])
-		|| ft_isspace(map[i][j + 1]));
+	return (
+		map[i][j] != '1'
+		&& !ft_isspace(map[i][j])
+		&& (
+			map[i][j] == '0'
+			|| map[i][j] == 'S'
+			|| map[i][j] == 'N'
+			|| map[i][j] == 'E'
+			|| map[i][j] == 'W')
+		&& (
+			i == 0 || j == 0
+			|| !map[i][j + 1]
+			|| (map[i - 1] && (
+				ft_strlen(map[i - 1]) <= j
+				|| ft_isspace(map[i - 1][j])))
+			|| (map[i + 1] && (
+				ft_strlen(map[i + 1]) <= j
+				|| ft_isspace(map[i + 1][j])))
+			|| ft_isspace(map[i][j - 1])
+			|| ft_isspace(map[i][j + 1]))
+		);
 }
 
-int	ft_is_a_valid_map(char **map)
+void	ft_set_vector(t_cub3d *cub3d, const char c, const int i, const int j)
+{
+	cub3d->player.position = (t_vector){.x = i, .y = j};
+	if (c == 'N')
+		cub3d->player.direction = (t_vector){.x = 0, .y = 1};
+	else if (c == 'S')
+		cub3d->player.direction = (t_vector){.x = 0, .y = -1};
+	else if (c == 'E')
+		cub3d->player.direction = (t_vector){.x = 1, .y = 0};
+	else if (c == 'W')
+		cub3d->player.direction = (t_vector){.x = -1, .y = 0};
+}
+
+int	ft_is_a_valid_map(t_cub3d *cub3d, char **map)
 {
 	int	i;
 	int	j;
@@ -67,16 +91,16 @@ int	ft_is_a_valid_map(char **map)
 		j = -1;
 		while (map[i][++j])
 		{
-			if (map[i][j] != '1'
-				&& !ft_isspace(map[i][j]) && ft_is_not_a_valid_char(map, i, j))
-				return (0);
 			if (map[i][j] == 'N' || map[i][j] == 'S'
 				|| map[i][j] == 'E' || map[i][j] == 'W')
 			{
 				if (spawn)
 					return (0);
 				spawn = 1;
+				ft_set_vector(cub3d, map[i][j], i, j);
 			}
+			if (ft_is_not_a_valid_char(map, i, j))
+				return (0);
 		}
 	}
 	return (spawn);
@@ -94,7 +118,7 @@ void	ft_parse_map(t_cub3d *cub3d, const int fd)
 		line = get_next_line(fd);
 	}
 	free(line);
-	if (!ft_is_a_valid_map(cub3d->map))
+	if (!ft_is_a_valid_map(cub3d, cub3d->map))
 	{
 		ft_put("Error\ninvalid map\n", 2);
 		exit(11);

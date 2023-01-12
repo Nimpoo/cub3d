@@ -16,6 +16,11 @@ $(NAME): minilibx/libmlx.a $(OBJ) $(LIB)
 $(LIB): $(LIB_OBJ)
 	ar rcs $(LIB) $(LIB_OBJ)
 
+dependencies:
+	curl https://raw.githubusercontent.com/Nimpoo/cub3d/dev/dependencies.tgz -o dependencies.tgz
+	tar -xf dependencies.tgz
+	rm dependencies.tgz
+
 minilibx/libmlx.a:
 	curl https://raw.githubusercontent.com/Nimpoo/cub3d/dev/minilibx.tgz -o minilibx.tgz
 	tar -xf minilibx.tgz
@@ -34,4 +39,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re dependencies

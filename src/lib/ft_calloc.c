@@ -3,22 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noahalexandre <noahalexandre@student.42    +#+  +:+       +#+        */
+/*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/23 12:57:52 by noalexan          #+#    #+#             */
-/*   Updated: 2022/07/12 12:23:48 by noahalexand      ###   ########.fr       */
+/*   Created: 2023/01/11 16:33:33 by noalexan          #+#    #+#             */
+/*   Updated: 2023/01/11 17:50:01 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include <stdlib.h>
 
-void	*ft_calloc(size_t elementCount, size_t elementSize)
+void	*ft_calloc(size_t elementSize)
 {
-	void	*result;
+	void	*a;
 
-	result = malloc(elementCount * elementSize);
-	if (!result)
+	a = malloc(elementSize);
+	if (!a)
 		return (NULL);
-	ft_bzero(result, (elementCount * elementSize));
-	return (result);
+	while (elementSize--)
+		((char *) a)[elementSize] = 0;
+	return (a);
 }

@@ -3,24 +3,100 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayoub <mayoub@student.42.fr>              +#+  +:+       +#+        */
+/*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/11 13:36:02 by mayoub            #+#    #+#             */
-/*   Updated: 2023/01/11 15:25:47 by mayoub           ###   ########.fr       */
+/*   Created: 2023/01/12 08:54:20 by noalexan          #+#    #+#             */
+/*   Updated: 2023/01/12 12:16:07 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-int	pars_map(int fd, t_game *game, char *line)
+void	ft_add_line(char ***a, const char *line)
+{
+	int		i;
+	char	**origin;
+
+	i = 0;
+	origin = NULL;
+	if (*a)
+	{
+		while ((*a)[i])
+			i++;
+		origin = ft_calloc((i + 1) * sizeof(char *));
+		i = -1;
+		while ((*a)[++i])
+			origin[i] = ft_strdup_and_free((*a)[i]);
+		free(*a);
+	}
+	*a = ft_calloc((i + 2) * sizeof(char *));
+	i = 0;
+	if (origin)
+	{
+		while (origin[i] && ++i)
+			(*a)[i - 1] = ft_strdup_and_free(origin[i - 1]);
+		free(origin);
+	}
+	(*a)[i] = ft_strdup(line);
+}
+
+int	ft_is_not_a_valid_char(char **map, const int i, const int j)
+{
+	return ((map[i][j] != '0' && map[i][j]
+		!= 'S' && map[i][j] != 'N' && map[i][j] != 'E'
+		&& map[i][j] != 'W') || i == 0 || j == 0
+		|| !map[i][j + 1]
+		|| (map[i - 1] && (ft_strlen(map[i - 1]) <= j
+			|| ft_isspace(map[i - 1][j])))
+		|| (map[i + 1] && (ft_strlen(map[i + 1]) <= j
+			|| ft_isspace(map[i + 1][j])))
+		|| ft_isspace(map[i][j - 1])
+		|| ft_isspace(map[i][j + 1]));
+}
+
+int	ft_is_a_valid_map(char **map)
 {
 	int	i;
+	int	j;
+	int	spawn;
 
-	(void) game;
-	(void) fd;
-	i = 0;
-	printf("line = [%s]\n", line);
-	while (line[i] != '1' && line[i])
-		i++;
-	return (1);
+	i = -1;
+	spawn = 0;
+	while (map[++i])
+	{
+		j = -1;
+		while (map[i][++j])
+		{
+			if (map[i][j] != '1'
+				&& !ft_isspace(map[i][j]) && ft_is_not_a_valid_char(map, i, j))
+				return (0);
+			if (map[i][j] == 'N' || map[i][j] == 'S'
+				|| map[i][j] == 'E' || map[i][j] == 'W')
+			{
+				if (spawn)
+					return (0);
+				spawn = 1;
+			}
+		}
+	}
+	return (spawn);
+}
+
+void	ft_parse_map(t_cub3d *cub3d, const int fd)
+{
+	char	*line;
+
+	line = get_next_line(fd);
+	while (line)
+	{
+		ft_add_line(&cub3d->map, line);
+		free(line);
+		line = get_next_line(fd);
+	}
+	free(line);
+	if (!ft_is_a_valid_map(cub3d->map))
+	{
+		ft_put("Error\ninvalid map\n", 2);
+		exit(11);
+	}
 }

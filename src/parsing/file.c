@@ -1,20 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isalpha.c                                       :+:      :+:    :+:   */
+/*   file.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/23 09:52:00 by noalexan          #+#    #+#             */
-/*   Updated: 2022/03/23 09:57:02 by noalexan         ###   ########.fr       */
+/*   Created: 2023/01/12 08:52:47 by noalexan          #+#    #+#             */
+/*   Updated: 2023/01/12 08:53:17 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int	ft_isalpha(int character)
+#include "../../include/cub3d.h"
+
+void	ft_parse_file(t_cub3d *cub3d, char *filename)
 {
-	if ('a' <= character && character <= 'z')
-		return (1);
-	if ('A' <= character && character <= 'Z')
-		return (1);
-	return (0);
+	const int	fd = open(filename, O_RDONLY);
+
+	if (fd == -1)
+	{
+		ft_put3("Error\nunable to open \'", filename, "\'\n", 2);
+		close(fd);
+		exit(3);
+	}
+	ft_parse_textures(cub3d, fd);
+	ft_parse_colors(cub3d, fd);
+	ft_parse_map(cub3d, fd);
+	close(fd);
 }

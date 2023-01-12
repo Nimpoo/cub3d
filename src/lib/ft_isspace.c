@@ -1,21 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   ft_isspace.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayoub <mayoub@student.42.fr>              +#+  +:+       +#+        */
+/*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/05 12:44:44 by noalexan          #+#    #+#             */
-/*   Updated: 2022/11/16 17:47:25 by mayoub           ###   ########.fr       */
+/*   Created: 2023/01/12 00:59:43 by noalexan          #+#    #+#             */
+/*   Updated: 2023/01/12 01:00:03 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
-
-t_token	*ft_lstlast(t_token *lst)
+int	ft_isspace(const char c)
 {
-	if (lst)
-		while (lst->next)
-			lst = lst->next;
-	return (lst);
+	return (c == ' ' || c == '\t' || c == '\v' || c == '\n'
+		|| c == '\r' || c == '\f');
 }

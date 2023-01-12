@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayoub <mayoub@student.42.fr>              +#+  +:+       +#+        */
+/*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/28 22:54:11 by noahalexand       #+#    #+#             */
-/*   Updated: 2022/11/16 17:48:37 by mayoub           ###   ########.fr       */
+/*   Created: 2023/01/11 16:22:55 by noalexan          #+#    #+#             */
+/*   Updated: 2023/01/11 16:23:41 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
-
-void	ft_lstadd_back(t_token **lst, t_token *new)
+int	ft_strlen(const char *s)
 {
-	t_token	*last;
+	int	i;
 
-	if (!lst)
-		return ;
-	else if (*lst)
-	{
-		last = ft_lstlast(*lst);
-		last->next = new;
-	}
-	else
-		*lst = new;
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }

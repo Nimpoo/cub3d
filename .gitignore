@@ -4,10 +4,9 @@
 !/src/*.c
 !/src/*/
 !/src/*/*.c
-!/src/*/Makefile
 
 !/include
 !/include/*.h
 
-!/.gitignore
 !/Makefile
+!/.gitignore

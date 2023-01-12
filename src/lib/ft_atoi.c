@@ -1,28 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/23 09:52:33 by noalexan          #+#    #+#             */
-/*   Updated: 2022/11/13 16:36:47 by noalexan         ###   ########.fr       */
+/*   Created: 2023/01/12 00:36:52 by noalexan          #+#    #+#             */
+/*   Updated: 2023/01/12 08:46:16 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/libft.h"
+#include "../../include/lib.h"
 
-int	ft_strchr(const char *string, int searchedChar)
+int	ft_atoi(const char *s)
 {
-	size_t	i;
+	int	result;
+	int	i;
 
 	i = -1;
-	if (!string)
-		return (0);
-	while (string[++i])
-		if (string[i] == searchedChar)
-			return (i);
-	if (string[i] == searchedChar)
-		return (i);
-	return (0);
+	result = 0;
+	while (s[++i] && '0' <= s[i] && s[i] <= '9')
+	{
+		result *= 10;
+		result += s[i] - '0';
+	}
+	if (s[i] && !ft_isspace(s[i]))
+	{
+		ft_put("error: map invalid\n", 2);
+		exit(7);
+	}
+	return (result);
 }

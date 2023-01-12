@@ -1,16 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mayoub <mayoub@student.42.fr>              +#+  +:+       +#+        */
+/*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/19 12:07:42 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/10 15:41:33 by mayoub           ###   ########.fr       */
+/*   Created: 2023/01/11 16:17:23 by noalexan          #+#    #+#             */
+/*   Updated: 2023/01/12 08:40:08 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/get_next_line.h"
+#include "../include/cub3d.h"
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 100
+#endif
 
 int	there_is_a_end_of_line(char *save)
 {
@@ -75,6 +79,25 @@ char	*get_line(char **save)
 	if (*save)
 		free(*save);
 	*save = new;
-	result[pos] = 0;
+	if (result[pos] == '\n')
+		result[pos] = 0;
 	return (result);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*save;
+	char		buffer[BUFFER_SIZE + 1];
+	int			bytes;
+
+	bytes = read(fd, buffer, BUFFER_SIZE);
+	while (bytes > 0)
+	{
+		buffer[bytes] = '\0';
+		add_buffer(&save, buffer);
+		if (there_is_a_end_of_line(save) != -1)
+			return (get_line(&save));
+		bytes = read(fd, buffer, BUFFER_SIZE);
+	}
+	return (get_line(&save));
 }

@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:54:20 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/12 13:47:34 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/13 19:54:27 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	ft_is_not_a_valid_char(char **map, const int i, const int j)
 
 void	ft_set_vector(t_cub3d *cub3d, const char c, const int i, const int j)
 {
-	cub3d->player.position = (t_vector){.x = i, .y = j};
+	cub3d->player.position = (t_vector){.x = j, .y = i};
 	if (c == 'N')
 		cub3d->player.direction = (t_vector){.x = 0, .y = 1};
 	else if (c == 'S')

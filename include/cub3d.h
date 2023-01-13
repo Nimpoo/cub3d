@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:20:46 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/12 13:22:11 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/13 18:53:53 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,19 @@
 
 # define W_WIDTH 800
 # define W_HEIGHT 500
+
+# define E_KEYPRESS 2
+# define E_KEYRELEASE 3
+# define E_QUIT 17
+
+// # define KEY_W 6
+# define KEY_W 13
+// # define KEY_A 12
+# define KEY_A 0
+# define KEY_S 1
+# define KEY_D 2
+# define KEY_ARROW_LEFT 123
+# define KEY_ARROW_RIGHT 124
 
 typedef struct s_image
 {
@@ -56,6 +69,8 @@ typedef struct s_cub3d
 {
 	t_textures	textures;
 	t_player	player;
+	int8_t		keys;
+	void		*screen;
 	char		**map;
 	void		*mlx;
 	void		*win;

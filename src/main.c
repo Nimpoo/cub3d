@@ -6,26 +6,46 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 15:01:28 by Marwan❤Noah       #+#    #+#             */
-/*   Updated: 2023/01/13 19:55:40 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/14 00:41:08 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
+void	ft_rotate_vector(t_vector *v, double angle)
+{
+	const double	matrix[2][2] = {{cos(angle), -sin(angle)}, {sin(angle), cos(angle)}};
+	double			x;
+	double			y;
+
+	x = matrix[0][0] * v->x + matrix[0][1] * v->y;
+	y = matrix[1][0] * v->x + matrix[1][1] * v->y;
+	v->x = x;
+	v->y = y;
+}
+
 void	ft_key_handler(t_cub3d *cub3d)
 {
 	if (cub3d->keys & 0b1)
-		if (cub3d->map[(int)(cub3d->player.position.y - 0.2)][(int) cub3d->player.position.x] != '1')
-			cub3d->player.position.y -= 0.2;
+		if (cub3d->map[(int)(cub3d->player.position.y - 0.05)]
+			[(int) cub3d->player.position.x] != '1')
+			cub3d->player.position.y -= 0.05;
 	if (cub3d->keys & 0b10)
-		if (cub3d->map[(int) cub3d->player.position.y][(int)(cub3d->player.position.x - 0.2)] != '1')
-			cub3d->player.position.x -= 0.2;
+		if (cub3d->map[(int) cub3d->player.position.y]
+			[(int)(cub3d->player.position.x - 0.05)] != '1')
+			cub3d->player.position.x -= 0.05;
 	if (cub3d->keys & 0b100)
-		if (cub3d->map[(int)(cub3d->player.position.y + 0.2)][(int) cub3d->player.position.x] != '1')
-			cub3d->player.position.y += 0.2;
+		if (cub3d->map[(int)(cub3d->player.position.y + 0.05)]
+			[(int) cub3d->player.position.x] != '1')
+			cub3d->player.position.y += 0.05;
 	if (cub3d->keys & 0b1000)
-		if (cub3d->map[(int) cub3d->player.position.y][(int)(cub3d->player.position.x + 0.2)] != '1')
-			cub3d->player.position.x += 0.2;
+		if (cub3d->map[(int) cub3d->player.position.y]
+			[(int)(cub3d->player.position.x + 0.05)] != '1')
+			cub3d->player.position.x += 0.05;
+	if (cub3d->keys & 0b10000)
+		ft_rotate_vector(&cub3d->player.direction, M_PI / 180);
+	if (cub3d->keys & 0b100000)
+		ft_rotate_vector(&cub3d->player.direction, M_PI / -180);
 }
 
 // perpendiculaire = new.x = point.y * -1, new.y = point.x
@@ -67,9 +87,24 @@ int	ft_keyrelease_handler(int key, t_cub3d *cub3d)
 }
 
 // (yb - ya) * (xc - xa) == (yc - ya) * (xb - xa)
-void	ft_draw_direction(t_cub3d *cub3d)
+void	ft_draw_direction(t_cub3d *cub3d, t_vector start, t_vector end)
 {
-	(void) cub3d;
+	double	x;
+	double	y;
+	double	dir_x;
+	double	dir_y;
+
+	dir_x = end.x * 10;
+	dir_y = end.y * -10;
+	x = dir_x / 100;
+	y = dir_y / 100;
+	while (((end.y >= 0 && dir_y <= 0) || (end.y < 0 && dir_y > 0)) && ((end.x >= 0 && dir_x >= 0) || (end.x < 0 && dir_x < 0)))
+	{
+		printf("%f %f %f %f\n", dir_x, dir_y, x, y);
+		mlx_pixel_put(cub3d->mlx, cub3d->win, (int)(start.x * 10 + dir_x), (int)(start.y * 10 + dir_y), 0xFF00);
+		dir_x -= x;
+		dir_y -= y;
+	}
 }
 
 void	ft_draw_map(t_cub3d *cub3d)
@@ -96,13 +131,19 @@ void	ft_draw_map(t_cub3d *cub3d)
 
 void	ft_loop(t_cub3d *cub3d)
 {
-	// mlx_put_image_to_window(cub3d->mlx, cub3d->win,
-	// 	cub3d->textures.background.img, 0, 0);
+	// mlx_put_image_to_window(cub3d->mlx, cub3d->win, cub3d->textures.background.img, 0, 0);
 	mlx_put_image_to_window(cub3d->mlx, cub3d->win, cub3d->screen, 0, 0);
 	ft_key_handler(cub3d);
 	mlx_pixel_put(cub3d->mlx, cub3d->win, cub3d->player.position.x * 10, cub3d->player.position.y * 10, 0xFFFFFF);
-	ft_draw_direction(cub3d);
 	ft_draw_map(cub3d);
+	ft_draw_direction(cub3d, cub3d->player.position, cub3d->player.direction);
+	ft_draw_direction(cub3d, (t_vector){.x = 2, .y = 20}, (t_vector){.x = 10, .y = 2});
+	ft_draw_direction(cub3d, (t_vector){.x = 2, .y = 18}, (t_vector){.x = 10, .y = -2});
+	ft_draw_direction(cub3d, (t_vector){.x = 1, .y = 1}, (t_vector){.x = 1, .y = 0});
+	ft_draw_direction(cub3d, (t_vector){.x = 1, .y = 1}, (t_vector){.x = 0, .y = -1});
+	ft_draw_direction(cub3d, (t_vector){.x = 1, .y = 1}, (t_vector){.x = -1, .y = 0});
+	ft_draw_direction(cub3d, (t_vector){.x = 1, .y = 1}, (t_vector){.x = 0, .y = 1});
+	ft_draw_direction(cub3d, (t_vector){.x = 1, .y = 1}, (t_vector){.x = 0.71, .y = 0.71});
 	printf("position x: %d\n", (int) cub3d->player.position.x);
 	printf("position y: %d\n", (int) cub3d->player.position.y);
 	printf("direction x: %f\n", cub3d->player.direction.x);

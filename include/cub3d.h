@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:20:46 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/13 18:53:53 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/13 23:06:07 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <math.h>
 
 # include "../minilibx/mlx.h"
 # include "lib.h"

@@ -16,6 +16,8 @@ $(NAME): minilibx/libmlx.a $(OBJ) $(LIB)
 $(LIB): $(LIB_OBJ)
 	ar rcs $(LIB) $(LIB_OBJ)
 
+init: dependencies minilibx/libmlx.a
+
 dependencies:
 	curl https://raw.githubusercontent.com/Nimpoo/cub3d/dev/dependencies.tgz -o dependencies.tgz
 	tar -xf dependencies.tgz

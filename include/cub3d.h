@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:20:46 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/14 17:09:00 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/14 20:05:51 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@
 # define E_KEYRELEASE 3
 # define E_QUIT 17
 
-// # define KEY_W 6
+# define KEY_ESC 53
 # define KEY_W 13
-// # define KEY_A 12
 # define KEY_A 0
 # define KEY_S 1
 # define KEY_D 2
@@ -78,7 +77,6 @@ typedef struct s_cub3d
 	t_player	player;
 	int8_t		keys;
 	t_vector	plane;
-	void		*screen;
 	char		**map;
 	void		*mlx;
 	void		*win;

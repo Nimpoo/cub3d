@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:20:46 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/14 02:36:12 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/14 17:09:00 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ typedef struct s_cub3d
 	t_textures	textures;
 	t_player	player;
 	int8_t		keys;
-	double		fov;
+	t_vector	plane;
 	void		*screen;
 	char		**map;
 	void		*mlx;

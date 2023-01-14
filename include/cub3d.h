@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:20:46 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/13 23:06:07 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/14 02:36:12 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,12 @@ typedef struct s_textures
 	t_image	background;
 }		t_textures;
 
+typedef struct s_int_vector
+{
+	int	x;
+	int	y;
+}		t_int_vector;
+
 typedef struct s_vector
 {
 	double	x;
@@ -71,6 +77,7 @@ typedef struct s_cub3d
 	t_textures	textures;
 	t_player	player;
 	int8_t		keys;
+	double		fov;
 	void		*screen;
 	char		**map;
 	void		*mlx;

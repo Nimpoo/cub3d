@@ -31,6 +31,9 @@ minilibx/libmlx.a:
 
 all: $(NAME)
 
+run: all
+	./$(NAME) maps/subject.cub
+
 clean:
 	rm -f $(LIB_OBJ)
 	rm -f $(OBJ)

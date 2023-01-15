@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Werror -Wextra -Wall
+CFLAGS = -Werror -Wextra -Wall -g
 
 SRC = $(addprefix src/, main.c get_next_line.c $(addprefix parsing/, file.c background.c texture.c map.c utils.c))
 OBJ = $(SRC:.c=.o)

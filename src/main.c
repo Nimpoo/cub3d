@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 15:01:28 by Marwan❤Noah       #+#    #+#             */
-/*   Updated: 2023/01/15 00:07:04 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/15 16:08:36 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,28 +23,28 @@ void	ft_rotate_vector(t_vector *v, double angle)
 	v->y = y;
 }
 
+void	ft_move(t_cub3d *cub3d, t_vector v)
+{
+	if (cub3d->map[(int)(cub3d->player.position.y)][(int)(cub3d->player.position.x + 0.05 * v.x)] != '1')
+		cub3d->player.position.x += 0.05 * v.x;
+	if (cub3d->map[(int)(cub3d->player.position.y + 0.05 * v.y)][(int)(cub3d->player.position.x)] != '1')
+		cub3d->player.position.y += 0.05 * v.y;
+}
+
 void	ft_key_handler(t_cub3d *cub3d)
 {
 	if (cub3d->keys & 0b1)
-	{
-		cub3d->player.position.x += 0.05 * cub3d->player.direction.x;
-		cub3d->player.position.y += 0.05 * -cub3d->player.direction.y;
-	}
+		ft_move(cub3d, (t_vector){.x = cub3d->player.direction.x,
+			.y = -cub3d->player.direction.y});
 	if (cub3d->keys & 0b10)
-	{
-		cub3d->player.position.x += 0.05 * -cub3d->player.direction.y;
-		cub3d->player.position.y += 0.05 * -cub3d->player.direction.x;
-	}
+		ft_move(cub3d, (t_vector){.x = -cub3d->player.direction.y,
+			.y = -cub3d->player.direction.x});
 	if (cub3d->keys & 0b100)
-	{
-		cub3d->player.position.x += 0.05 * -cub3d->player.direction.x;
-		cub3d->player.position.y += 0.05 * cub3d->player.direction.y;
-	}
+		ft_move(cub3d, (t_vector){.x = -cub3d->player.direction.x,
+			.y = cub3d->player.direction.y});
 	if (cub3d->keys & 0b1000)
-	{
-		cub3d->player.position.x += 0.05 * cub3d->player.direction.y;
-		cub3d->player.position.y += 0.05 * cub3d->player.direction.x;
-	}
+		ft_move(cub3d, (t_vector){.x = cub3d->player.direction.y,
+			.y = cub3d->player.direction.x});
 	if (cub3d->keys & 0b10000)
 	{
 		ft_rotate_vector(&cub3d->player.direction, M_PI / 180 * 2);
@@ -150,6 +150,15 @@ void	ft_draw_map(t_cub3d *cub3d)
 	}
 }
 
+// void	ft_draw_line(t_cub3d *cub3d, int x, int start, int end, unsigned int color)
+// {
+// 	while (start < end)
+// 	{
+// 		mlx_pixel_put(cub3d->mlx, cub3d->win, x, start, color);
+// 		start++;
+// 	}
+// }
+
 void	ft_draw_walls(t_cub3d *cub3d)
 {
 	t_vector	ray;
@@ -162,6 +171,82 @@ void	ft_draw_walls(t_cub3d *cub3d)
 		camera_x = 2 * x / (double) W_WIDTH - 1;
 		ray.x = cub3d->player.direction.x + cub3d->plane.x * camera_x;
 		ray.y = cub3d->player.direction.y + cub3d->plane.y * camera_x;
+		if (!(x % 400))
+// 		{
+// 			int mapX = (int) cub3d->player.position.x;
+// 			int mapY = (int) cub3d->player.position.y;
+
+// 			int stepX;
+// 			int stepY;
+
+// 			double sideDistX;
+// 			double sideDistY;
+
+			ft_draw_direction(cub3d, cub3d->player.position, (t_vector){.x = ray.x * 20, .y = ray.y * 20}, 0xFF0000);
+
+// 			double deltaDistX = sqrt(1 + (ray.y * ray.y) / (ray.x * ray.x));
+// 			double deltaDistY = sqrt(1 + (ray.x * ray.x) / (ray.y * ray.y));
+
+// 			if (ray.x < 0)
+// 			{
+// 				stepX = -1;
+// 				sideDistX = (cub3d->player.position.x - mapX) * deltaDistX;
+// 			}
+// 			else
+// 			{
+// 				stepX = 1;
+// 				sideDistX = (mapX + 1.0 - cub3d->player.position.x) * deltaDistX;
+// 			}
+// 			if (ray.y < 0)
+// 			{
+// 				stepY = -1;
+// 				sideDistY = (cub3d->player.position.y - mapY) * deltaDistY;
+// 			}
+// 			else
+// 			{
+// 				stepY = 1;
+// 				sideDistY = (mapY + 1.0 - cub3d->player.position.y) * deltaDistY;
+// 			}
+
+// 			int hit = 0;
+// 			int side;
+
+// 			while (hit == 0)
+// 			{
+// 				if (sideDistX < sideDistY)
+// 				{
+// 					sideDistX += deltaDistX;
+// 					mapX += stepX;
+// 					side = 0;
+// 				}
+// 				else
+// 				{
+// 					sideDistY += deltaDistY;
+// 					mapY += stepY;
+// 					side = 1;
+// 				}
+// 				if (cub3d->map[mapY][mapX] > 0) hit = 1;
+// 			}
+
+// 			double perpWallDist;
+// 			if(side == 0)
+// 				perpWallDist = (sideDistX - deltaDistX);
+// 			else
+// 				perpWallDist = (sideDistY - deltaDistY);
+
+// 			int lineHeight = (int) (W_HEIGHT / perpWallDist);
+
+// 			int drawStart = -lineHeight / 2 + W_HEIGHT / 2;
+// 			if(drawStart < 0) drawStart = 0;
+// 			int drawEnd = lineHeight / 2 + W_HEIGHT / 2;
+// 			if(drawEnd >= W_HEIGHT) drawEnd = W_HEIGHT - 1;
+
+// 			unsigned int color = 0xFF;
+// 			if (side == 1) color = color / 2;
+
+// 			ft_draw_line(cub3d, x, drawStart, drawEnd, color);
+
+// 		}
 		x++;
 	}
 }

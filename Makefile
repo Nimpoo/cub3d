@@ -32,7 +32,7 @@ minilibx/libmlx.a:
 all: $(NAME)
 
 run: all
-	./$(NAME) maps/subject.cub
+	./$(NAME) maps/test.cub
 
 clean:
 	rm -f $(LIB_OBJ)

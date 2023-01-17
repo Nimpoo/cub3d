@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 17:00:34 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/11 17:08:12 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/17 07:25:58 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	ft_reverse_strncmp(const char *s1, const char *s2, const int lenght)
 	i = ft_strlen(s1) - 1;
 	j = ft_strlen(s2) - 1;
 	l = 0;
-	while (s1[i] && s2[j] && l < lenght)
+	while (i >= 0 && j >= 0 && l < lenght)
 	{
 		if (s1[i] != s2[j])
 			return (s1[i] - s2[j]);

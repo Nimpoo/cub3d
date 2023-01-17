@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:20:46 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/16 23:21:56 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/17 07:23:58 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,8 @@ char		*get_next_line(int fd);
 void		ft_key_handler(t_cub3d *cub3d);
 int			ft_keypress_handler(int key, t_cub3d *cub3d);
 int			ft_keyrelease_handler(int key, t_cub3d *cub3d);
+
+// src/ft_loop.c
+void		ft_loop(t_cub3d *cub3d);
 
 #endif

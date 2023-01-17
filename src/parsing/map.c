@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:54:20 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/17 05:21:00 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/17 07:28:38 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,12 @@ void	ft_set_vector(t_cub3d *cub3d, const char c, const int i, const int j)
 	}
 	else if (c == 'E')
 	{
-		cub3d->player.direction = (t_vector){.x = 1, .y = 0};
+		cub3d->player.direction = (t_vector){.x = -1, .y = 0};
 		cub3d->plane = (t_vector){.x = 0, .y = -.7};
 	}
 	else if (c == 'W')
 	{
-		cub3d->player.direction = (t_vector){.x = -1, .y = 0};
+		cub3d->player.direction = (t_vector){.x = 1, .y = 0};
 		cub3d->plane = (t_vector){.x = 0, .y = .7};
 	}
 }

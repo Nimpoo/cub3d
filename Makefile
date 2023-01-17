@@ -1,10 +1,10 @@
 CC = gcc
 CFLAGS = -Werror -Wextra -Wall -g
 
-SRC = $(addprefix src/, main.c get_next_line.c $(addprefix parsing/, file.c background.c texture.c map.c utils.c))
+SRC = $(addprefix src/, main.c get_next_line.c key_handler.c $(addprefix parsing/, file.c background.c texture.c map.c utils.c))
 OBJ = $(SRC:.c=.o)
 
-LIB_SRC = $(addprefix src/lib/, ft_strlen.c ft_calloc.c ft_put.c ft_strdup.c ft_strcmp.c ft_split.c ft_atoi.c ft_isspace.c)
+LIB_SRC = $(addprefix src/lib/, ft_strlen.c ft_calloc.c ft_put.c ft_strdup.c ft_strcmp.c ft_split.c ft_atoi.c ft_isspace.c ft_convert_rgba.c ft_rotate_vector.c ft_move.c)
 LIB_OBJ = $(LIB_SRC:.c=.o)
 LIB = src/lib/lib.a
 
@@ -32,7 +32,7 @@ minilibx/libmlx.a:
 all: $(NAME)
 
 run: all
-	./$(NAME) maps/test.cub
+	./$(NAME) maps/subject.cub
 
 clean:
 	rm -f $(LIB_OBJ)

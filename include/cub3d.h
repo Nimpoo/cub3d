@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:20:46 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/15 16:42:06 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/16 23:21:56 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,53 +37,6 @@
 # define KEY_ARROW_LEFT 123
 # define KEY_ARROW_RIGHT 124
 
-typedef struct s_image
-{
-	void	*img;
-	int		width;
-	int		height;
-}		t_image;
-
-typedef struct s_textures
-{
-	t_image	north;
-	t_image	south;
-	t_image	east;
-	t_image	west;
-	t_image	background;
-}		t_textures;
-
-typedef struct s_int_vector
-{
-	int	x;
-	int	y;
-}		t_int_vector;
-
-typedef struct s_vector
-{
-	double	x;
-	double	y;
-}		t_vector;
-
-typedef struct s_player
-{
-	t_vector	position;
-	t_vector	direction;
-}		t_player;
-
-typedef struct s_cub3d
-{
-	t_textures	textures;
-	t_player	player;
-	int8_t		keys;
-	t_vector	plane;
-	void		*screen;
-	char		*screen_addr;
-	char		**map;
-	void		*mlx;
-	void		*win;
-}		t_cub3d;
-
 // src/parsing/file.c
 void		ft_parse_file(t_cub3d *cub3d, char *filename);
 
@@ -102,5 +55,10 @@ const char	*ft_skip_space(const char *s);
 
 // src/get_next_line.c
 char		*get_next_line(int fd);
+
+// src/ft_key_handler.c
+void		ft_key_handler(t_cub3d *cub3d);
+int			ft_keypress_handler(int key, t_cub3d *cub3d);
+int			ft_keyrelease_handler(int key, t_cub3d *cub3d);
 
 #endif

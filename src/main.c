@@ -6,67 +6,21 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 15:01:28 by Marwan❤Noah       #+#    #+#             */
-/*   Updated: 2023/01/15 17:33:53 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/17 05:50:27 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/cub3d.h"
 
-void	ft_rotate_vector(t_vector *v, double angle)
+void ft_exit(t_cub3d *cub3d)
 {
-	double			x;
-	double			y;
-
-	x = cos(angle) * v->x + -sin(angle) * v->y;
-	y = sin(angle) * v->x + cos(angle) * v->y;
-	v->x = x;
-	v->y = y;
-}
-
-void	ft_move(t_cub3d *cub3d, t_vector v)
-{
-	if (cub3d->map[(int)(cub3d->player.position.y)][(int)(cub3d->player.position.x + .005 * v.x)] != '1')
-		cub3d->player.position.x += .005 * v.x;
-	if (cub3d->map[(int)(cub3d->player.position.y + .005 * v.y)][(int)(cub3d->player.position.x)] != '1')
-		cub3d->player.position.y += .005 * v.y;
-}
-
-void	ft_key_handler(t_cub3d *cub3d)
-{
-	if (cub3d->keys & 0b1)
-		ft_move(cub3d, (t_vector){.x = cub3d->player.direction.x,
-			.y = -cub3d->player.direction.y});
-	if (cub3d->keys & 0b10)
-		ft_move(cub3d, (t_vector){.x = -cub3d->player.direction.y,
-			.y = -cub3d->player.direction.x});
-	if (cub3d->keys & 0b100)
-		ft_move(cub3d, (t_vector){.x = -cub3d->player.direction.x,
-			.y = cub3d->player.direction.y});
-	if (cub3d->keys & 0b1000)
-		ft_move(cub3d, (t_vector){.x = cub3d->player.direction.y,
-			.y = cub3d->player.direction.x});
-	if (cub3d->keys & 0b10000)
-	{
-		ft_rotate_vector(&cub3d->player.direction, M_PI / 180 * 2);
-		ft_rotate_vector(&cub3d->plane, M_PI / 180 * 20);
-	}
-	if (cub3d->keys & 0b100000)
-	{
-		ft_rotate_vector(&cub3d->player.direction, M_PI / -180 * 2);
-		ft_rotate_vector(&cub3d->plane, M_PI / -180 * 20);
-	}
-}
-
-void	ft_exit(t_cub3d *cub3d)
-{
-	int	i;
+	int i;
 
 	mlx_destroy_window(cub3d->mlx, cub3d->win);
 	mlx_destroy_image(cub3d->mlx, cub3d->textures.north.img);
 	mlx_destroy_image(cub3d->mlx, cub3d->textures.south.img);
 	mlx_destroy_image(cub3d->mlx, cub3d->textures.east.img);
 	mlx_destroy_image(cub3d->mlx, cub3d->textures.west.img);
-	mlx_destroy_image(cub3d->mlx, cub3d->textures.background.img);
 	i = -1;
 	while (cub3d->map[++i])
 		free(cub3d->map[i]);
@@ -74,48 +28,10 @@ void	ft_exit(t_cub3d *cub3d)
 	exit(0);
 }
 
-int	ft_keypress_handler(int key, t_cub3d *cub3d)
-{
-	if (key == KEY_W)
-		cub3d->keys = cub3d->keys | 0b1;
-	else if (key == KEY_A)
-		cub3d->keys = cub3d->keys | 0b10;
-	else if (key == KEY_S)
-		cub3d->keys = cub3d->keys | 0b100;
-	else if (key == KEY_D)
-		cub3d->keys = cub3d->keys | 0b1000;
-	else if (key == KEY_ARROW_LEFT)
-		cub3d->keys = cub3d->keys | 0b10000;
-	else if (key == KEY_ARROW_RIGHT)
-		cub3d->keys = cub3d->keys | 0b100000;
-	else if (key == KEY_ESC)
-		exit(0);
-	else
-		printf("unknown key: %d\n", key);
-	return (0);
-}
-
-int	ft_keyrelease_handler(int key, t_cub3d *cub3d)
-{
-	if (key == KEY_W)
-		cub3d->keys = cub3d->keys & ~0b1;
-	else if (key == KEY_A)
-		cub3d->keys = cub3d->keys & ~0b10;
-	else if (key == KEY_S)
-		cub3d->keys = cub3d->keys & ~0b100;
-	else if (key == KEY_D)
-		cub3d->keys = cub3d->keys & ~0b1000;
-	else if (key == KEY_ARROW_LEFT)
-		cub3d->keys = cub3d->keys & ~0b10000;
-	else if (key == KEY_ARROW_RIGHT)
-		cub3d->keys = cub3d->keys & ~0b100000;
-	return (0);
-}
-
 void	ft_set_pixel(t_cub3d *cub3d, t_vector v, unsigned int color)
 {
 	if (0 <= v.x && v.x <= W_WIDTH && 0 <= v.y && v.y <= W_HEIGHT)
-		((unsigned int *) cub3d->screen_addr)[(int) v.y * W_WIDTH + (int) v.x] = color;
+		((unsigned int *)cub3d->frame_addr)[(int)v.y * W_WIDTH + (int)v.x] = color;
 }
 
 void	ft_draw_vector(t_cub3d *cub3d, t_vector start, t_vector end, unsigned int color)
@@ -125,19 +41,19 @@ void	ft_draw_vector(t_cub3d *cub3d, t_vector start, t_vector end, unsigned int c
 	double	dir_x;
 	double	dir_y;
 
-	dir_x = end.x * 10;
-	dir_y = end.y * -10;
+	dir_x = end.x * 5;
+	dir_y = end.y * -5;
 	x = dir_x / 100;
 	y = dir_y / 100;
 	while (((end.y >= 0 && dir_y <= 0) || (end.y < 0 && dir_y > 0)) && ((end.x >= 0 && dir_x >= 0) || (end.x < 0 && dir_x < 0)))
 	{
-		ft_set_pixel(cub3d, (t_vector){.x = start.x * 10 + dir_x, .y = start.y * 10 + dir_y}, color);
+		ft_set_pixel(cub3d, (t_vector){.x = start.x * 5 + dir_x + 5, .y = start.y * 5 + -dir_y + 5}, color);
 		dir_x -= x;
 		dir_y -= y;
 	}
 }
 
-void	ft_draw_map(t_cub3d *cub3d)
+void ft_draw_map(t_cub3d *cub3d)
 {
 	int	i;
 	int	j;
@@ -148,53 +64,137 @@ void	ft_draw_map(t_cub3d *cub3d)
 		j = -1;
 		while (cub3d->map[i][++j])
 			if (cub3d->map[i][j] == '1')
-				for (int l = 0; l < 10; l++)
-					for (int k = 0; k < 10; k++)
-						ft_set_pixel(cub3d, (t_vector){.x = j * 10 + l, .y = i * 10 + k}, 0x9AFF0000);
+				for (int l = 0; l < 5; l++)
+					for (int k = 0; k < 5; k++)
+						ft_set_pixel(cub3d, (t_vector){.x = j * 5 + l + 5, .y = i * 5 + k + 5}, ft_convert_rgba(255, 255, 255, 100));
 	}
+	ft_draw_vector(cub3d, cub3d->player.position, cub3d->player.direction, 0xFF00);
+	ft_set_pixel(cub3d, (t_vector){.x = cub3d->player.position.x * 5 + 5, .y = cub3d->player.position.y * 5 + 5}, 0xFFFFFF);
 }
 
 void	ft_draw_line(t_cub3d *cub3d, int x, int start, int end, unsigned int color)
 {
-	int			i;
+	int i;
 
 	i = -1;
 	while (++i < start)
-		ft_set_pixel(cub3d, (t_vector){.x = x, .y = i}, 0xFF);
+		ft_set_pixel(cub3d, (t_vector){.x = x, .y = i}, cub3d->textures.ceiling);
 	i--;
 	while (++i < end)
 		ft_set_pixel(cub3d, (t_vector){.x = x, .y = i}, color);
 	i--;
 	while (++i < W_HEIGHT)
-		ft_set_pixel(cub3d, (t_vector){.x = x, .y = i}, 0xFF0000);
+		ft_set_pixel(cub3d, (t_vector){.x = x, .y = i}, cub3d->textures.floor);
 }
 
-void	ft_draw_walls(t_cub3d *cub3d)
+void	ft_set_line(t_cub3d *cub3d, int x, double perpendicular_dist, int side)
+{
+	const int			h = (int)(W_HEIGHT / perpendicular_dist);
+	const int			line_top = -h / 2 + W_HEIGHT / 2;
+	const int			line_bottom = h / 2 + W_HEIGHT / 2;
+	const unsigned int	color = 0x313131 / (side + 1);
+
+	ft_draw_line(cub3d, x, line_top, line_bottom, color);
+}
+
+void	ft_perform_dda(t_cub3d *cub3d, t_vector *vectors, int x)
+{
+	int		map_y;
+	int		map_x;
+	int		side;
+
+	map_y = (int) cub3d->player.position.x;
+	map_x = (int) cub3d->player.position.y;
+	while (cub3d->map[map_x][map_y] != '1')
+	{
+		if (vectors[1].x < vectors[1].y)
+		{
+			vectors[1].x += vectors[0].x;
+			map_y += vectors[2].x;
+			side = 0;
+		}
+		else
+		{
+			vectors[1].y += vectors[0].y;
+			map_x += vectors[2].y;
+			side = 1;
+		}
+	}
+	if (side)
+		ft_set_line(cub3d, x, vectors[1].y - vectors[0].y, side);
+	else
+		ft_set_line(cub3d, x, vectors[1].x - vectors[0].x, side);
+}
+
+void	ft_calc_step(t_cub3d *cub3d, t_vector ray, t_vector delta, int x)
+{
+	const t_vector	pos = cub3d->player.position;
+	t_vector		step;
+	t_vector		side_dist;
+
+	if (ray.x < 0)
+	{
+		step.x = -1;
+		side_dist.x = (pos.x - (int) pos.x) * delta.x;
+	}
+	else
+	{
+		step.x = 1;
+		side_dist.x = ((int) pos.x + 1. - pos.x) * delta.x;
+	}
+	if (ray.y < 0)
+	{
+		step.y = -1;
+		side_dist.y = (pos.y - (int) pos.y) * delta.y;
+	}
+	else
+	{
+		step.y = 1;
+		side_dist.y = ((int) pos.y + 1. - pos.y) * delta.y;
+	}
+	ft_perform_dda(cub3d, (t_vector []){delta, side_dist, step}, x);
+}
+
+void	ft_dda(t_cub3d *cub3d)
 {
 	t_vector	ray;
-	double		camera_x;
+	t_vector	delta;
 	int			x;
+	double		camera_x;
 
-	x = 0;
-	while (x <= W_WIDTH)
+	x = -1;
+	while (++x < W_WIDTH)
 	{
 		camera_x = 2 * x / (double) W_WIDTH - 1;
 		ray.x = cub3d->player.direction.x + cub3d->plane.x * camera_x;
 		ray.y = cub3d->player.direction.y + cub3d->plane.y * camera_x;
-		ft_draw_line(cub3d, x, W_HEIGHT / 2, W_HEIGHT / 2, 0);
-		ft_draw_vector(cub3d, cub3d->player.position, (t_vector){.x = ray.x * 10, .y = ray.y * 10}, 0xFF);
-		x++;
+		if (ray.x == 0)
+			delta.x = 1e10;
+		else
+			delta.x = fabs(1 / ray.x);
+		if (ray.y == 0)
+			delta.y = 1e10;
+		else
+			delta.y = fabs(1 / ray.y);
+		ft_calc_step(cub3d, ray, delta, x);
 	}
+}
+
+void	ft_clear_frame(t_cub3d *cub3d)
+{
+	int	i;
+
+	i = -1;
+	while (++i <= W_HEIGHT * W_WIDTH)
+		((unsigned int *)cub3d->frame_addr)[i] = 0x0F423F;
 }
 
 void	ft_loop(t_cub3d *cub3d)
 {
 	ft_key_handler(cub3d);
-	ft_draw_walls(cub3d);
+	ft_dda(cub3d);
 	ft_draw_map(cub3d);
-	ft_draw_vector(cub3d, cub3d->player.position, cub3d->player.direction, 0xFF00);
-	ft_set_pixel(cub3d, (t_vector){.x = cub3d->player.position.x * 10, .y = cub3d->player.position.y * 10}, 0xFFFFFF);
-	mlx_put_image_to_window(cub3d->mlx, cub3d->win, cub3d->screen, 0, 0);
+	mlx_put_image_to_window(cub3d->mlx, cub3d->win, cub3d->frame, 0, 0);
 }
 
 int	main(int argc, char **argv)
@@ -214,8 +214,8 @@ int	main(int argc, char **argv)
 	}
 	cub3d = ft_calloc(sizeof(t_cub3d));
 	cub3d->mlx = mlx_init();
-	cub3d->screen = mlx_new_image(cub3d->mlx, W_WIDTH, W_HEIGHT);
-	cub3d->screen_addr = mlx_get_data_addr(cub3d->screen, &i, &i, &i);
+	cub3d->frame = mlx_new_image(cub3d->mlx, W_WIDTH, W_HEIGHT);
+	cub3d->frame_addr = mlx_get_data_addr(cub3d->frame, &i, &i, &i);
 	ft_parse_file(cub3d, argv[1]);
 	cub3d->win = mlx_new_window(cub3d->mlx, W_WIDTH, W_HEIGHT, "cub3d");
 	mlx_hook(cub3d->win, E_KEYPRESS, 0, ft_keypress_handler, cub3d);

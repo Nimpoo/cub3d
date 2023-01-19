@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:20:46 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/17 07:23:58 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/18 01:56:58 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "../minilibx/mlx.h"
 # include "lib.h"
 
-# define W_WIDTH 800
-# define W_HEIGHT 500
+# define W_WIDTH 640
+# define W_HEIGHT 480
 
 # define E_KEYPRESS 2
 # define E_KEYRELEASE 3

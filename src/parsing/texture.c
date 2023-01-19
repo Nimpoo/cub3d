@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:56:48 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/12 11:32:29 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/17 22:24:02 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_set_image(t_cub3d *cub3d, t_image *img, char *path)
 {
+	int	i;
+
 	if (ft_reverse_strncmp(path, ".xpm", 4))
 	{
 		ft_put3("Error\n'", path, "' not a XPM file\n", 2);
@@ -29,6 +31,7 @@ void	ft_set_image(t_cub3d *cub3d, t_image *img, char *path)
 		ft_put3("Error\nunable to open '", path, "'\n", 2);
 		exit(5);
 	}
+	img->addr = mlx_get_data_addr(img->img, &i, &i, &i);
 }
 
 void	ft_set_texture(t_cub3d *cub3d, const char *line)

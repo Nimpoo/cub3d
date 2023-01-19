@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 15:01:28 by Marwan❤Noah       #+#    #+#             */
-/*   Updated: 2023/01/17 07:20:23 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/17 22:28:48 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	main(int argc, char **argv)
 	}
 	cub3d = ft_calloc(sizeof(t_cub3d));
 	cub3d->mlx = mlx_init();
-	cub3d->frame = mlx_new_image(cub3d->mlx, W_WIDTH, W_HEIGHT);
-	cub3d->frame_addr = mlx_get_data_addr(cub3d->frame, &i, &i, &i);
+	cub3d->frame.img = mlx_new_image(cub3d->mlx, W_WIDTH, W_HEIGHT);
+	cub3d->frame.addr = mlx_get_data_addr(cub3d->frame.img, &i, &i, &i);
 	ft_parse_file(cub3d, argv[1]);
 	cub3d->win = mlx_new_window(cub3d->mlx, W_WIDTH, W_HEIGHT, "cub3d");
 	mlx_hook(cub3d->win, E_KEYPRESS, 0, ft_keypress_handler, cub3d);

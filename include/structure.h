@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 23:22:01 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/17 05:24:01 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/18 01:29:46 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 typedef struct s_image
 {
 	void	*img;
+	char	*addr;
 	int		width;
 	int		height;
 }		t_image;
@@ -32,12 +33,6 @@ typedef struct s_textures
 	unsigned int	floor;
 }		t_textures;
 
-typedef struct s_int_vector
-{
-	int	x;
-	int	y;
-}		t_int_vector;
-
 typedef struct s_vector
 {
 	double	x;
@@ -50,14 +45,25 @@ typedef struct s_player
 	t_vector	direction;
 }		t_player;
 
+typedef struct s_dda
+{
+	int			x;
+	t_vector	ray;
+	t_vector	delta;
+	t_vector	step;
+	t_vector	side_dist;
+	t_vector	map;
+	int			side;
+}		t_dda;
+
 typedef struct s_cub3d
 {
 	t_textures	textures;
 	t_player	player;
 	int8_t		keys;
 	t_vector	plane;
-	void		*frame;
-	char		*frame_addr;
+	t_image		frame;
+	t_dda		dda;
 	char		**map;
 	void		*mlx;
 	void		*win;

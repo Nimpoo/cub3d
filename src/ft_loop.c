@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 07:20:31 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/18 04:54:15 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/21 06:37:04 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,39 +31,36 @@ void	ft_exit(t_cub3d *cub3d)
 void	ft_set_pixel(t_cub3d *cub3d, t_vector v, unsigned int color)
 {
 	if (0 <= v.x && v.x < W_WIDTH && 0 <= v.y && v.y < W_HEIGHT)
-		((unsigned int *)cub3d->frame.addr)[(int)v.y * W_WIDTH + (int)v.x]
+		((unsigned int *) cub3d->frame.addr)[(int) v.y * W_WIDTH + (int) v.x]
 			= color;
 }
 
-unsigned int	ft_get_pixel(t_image img, t_vector v)
+unsigned int	ft_get_pixel(t_image *img, t_vector v)
 {
-	// printf("%f * %d + %f = %f\n", v.y, img.height, v.x, v.y * img.height + v.x);
-	if (v.x <= img.width && v.y < img.width
-		&& v.y <= img.height && v.y < img.height)
-		return (((unsigned int *) img.addr)[(int)(v.y * img.height + v.x)]);
+	if (v.x <= img->width && v.y < img->width
+		&& v.y <= img->height && v.y < img->height)
+		return (((unsigned int *) img->addr)[(int)(v.y * img->height + v.x)]);
 	return (0);
 }
 
 void	ft_draw_vector(t_cub3d *cub3d, t_vector s, t_vector e, unsigned int c)
 {
-	double	x;
-	double	y;
-	double	dir_x;
-	double	dir_y;
-	double	square;
+	t_vector	a;
+	t_vector	dir;
+	double		square;
 
-	dir_x = e.x * 5;
-	dir_y = e.y * -5;
-	square = sqrt(dir_x * dir_x + dir_y * dir_y);
-	x = dir_x / square;
-	y = dir_y / square;
-	while (((e.y >= 0 && dir_y <= 0) || (e.y < 0 && dir_y > 0))
-		&& ((e.x >= 0 && dir_x >= 0) || (e.x < 0 && dir_x < 0)))
+	dir.x = e.x * 5;
+	dir.y = e.y * -5;
+	square = sqrt(dir.x * dir.x + dir.y * dir.y);
+	a.x = dir.x / square;
+	a.y = dir.y / square;
+	while (((e.y >= 0 && dir.y <= 0) || (e.y < 0 && dir.y > 0))
+		&& ((e.x >= 0 && dir.x >= 0) || (e.x < 0 && dir.x < 0)))
 	{
 		ft_set_pixel(cub3d, (t_vector)
-		{.x = s.x * 5 + dir_x + 5, .y = s.y * 5 + -dir_y + 5}, c);
-		dir_x -= x;
-		dir_y -= y;
+		{.x = s.x * 5 + dir.x + 5, .y = s.y * 5 + -dir.y + 5}, c);
+		dir.x -= a.x;
+		dir.y -= a.y;
 	}
 }
 
@@ -80,20 +77,20 @@ void	ft_draw_map(t_cub3d *cub3d)
 		j = -1;
 		while (cub3d->map[i][++j])
 		{
-			if (cub3d->map[i][j] == '1')
+			l = -1;
+			while (cub3d->map[i][j] == '1' && ++l < 5)
 			{
-				l = -1;
-				while (++l < 5)
-				{
-					k = -1;
-					while (++k < 5)
-						ft_set_pixel(cub3d, (t_vector){.x = j * 5 + l + 5, .y = i * 5 + k + 5}, 0x64FFFFFF);
-				}
+				k = -1;
+				while (++k < 5)
+					ft_set_pixel(cub3d, (t_vector)
+					{.x = j * 5 + l + 5, .y = i * 5 + k + 5}, 0xFFFFFF);
 			}
 		}
 	}
-	ft_draw_vector(cub3d, cub3d->player.position, cub3d->player.direction, 0xFF00);
-	ft_set_pixel(cub3d, (t_vector){.x = cub3d->player.position.x * 5 + 5, .y = cub3d->player.position.y * 5 + 5}, 0xFFFFFF);
+	ft_draw_vector(cub3d, cub3d->player.position, cub3d->player.direction,
+		0xFF00);
+	ft_set_pixel(cub3d, (t_vector){.x = cub3d->player.position.x * 5 + 5, .y
+		= cub3d->player.position.y * 5 + 5}, 0xFFFFFF);
 }
 
 void	ft_draw_line(t_cub3d *cub3d, int start, int end)
@@ -111,23 +108,27 @@ void	ft_draw_line(t_cub3d *cub3d, int start, int end)
 		img = &cub3d->textures.south;
 	i = -1;
 	while (++i < start)
-		ft_set_pixel(cub3d, (t_vector){.x = cub3d->dda.x, .y = i}, cub3d->textures.ceiling);
+		ft_set_pixel(cub3d, (t_vector){.x = cub3d->dda.x, .y = i},
+			cub3d->textures.ceiling);
 	i--;
+	if (cub3d->dda.x == W_WIDTH / 2)
+	{
+		printf("%f\n", (cub3d->dda.map.y - (int) cub3d->dda.map.y) * img->width);
+		// exit(0);
+	}
 	while (++i < end && i < W_HEIGHT)
 	{
-		// if (cub3d->dda.x == W_WIDTH / 2)
-		{
-			ft_set_pixel(cub3d, (t_vector){.x = cub3d->dda.x, .y = i}, ft_get_pixel(*img, (t_vector){.x = 8, .y = i * ((double) img->height / W_HEIGHT)}));
-			// printf("%d %f\n", img->width, cub3d->dda.map.x);
-			// for (int j = 0; j < img->height; j++)
-			// 	for (int l = 0; l < img->width; l++)
-			// 		if (!ft_get_pixel(*img, (t_vector){.x = j, .y = l}))
-			// 			(printf("pos: %dx%d\n", j, l), exit(0));
-		}
+		if (cub3d->dda.side == 0 || cub3d->dda.side == 1)
+			ft_set_pixel(cub3d, (t_vector){.x = cub3d->dda.x, .y = i},
+				ft_get_pixel(img, (t_vector){.x = 0 /* (cub3d->dda.map.x - (int) cub3d->dda.map.x) * img->width */, .y = (i - start) / (end - start) * img->height}));
+		else if (cub3d->dda.side == 2 || cub3d->dda.side == 3)
+			ft_set_pixel(cub3d, (t_vector){.x = cub3d->dda.x, .y = i},
+				ft_get_pixel(img, (t_vector){.x = 0 /* (cub3d->dda.map.y - (int) cub3d->dda.map.y) * img->width */, .y = (i - start) / (end - start) * img->height}));
 	}
 	i--;
 	while (++i < W_HEIGHT)
-		ft_set_pixel(cub3d, (t_vector){.x = cub3d->dda.x, .y = i}, cub3d->textures.floor);
+		ft_set_pixel(cub3d, (t_vector){.x = cub3d->dda.x, .y = i},
+			cub3d->textures.floor);
 }
 
 void	ft_set_line(t_cub3d *cub3d, double perpendicular_dist)

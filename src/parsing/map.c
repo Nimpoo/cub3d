@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:54:20 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/18 06:20:55 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/21 05:51:18 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,23 +70,23 @@ void	ft_set_vector(t_cub3d *cub3d, const char c, const int i, const int j)
 	cub3d->player.position = (t_vector){.x = j + .5, .y = i + .5};
 	if (c == 'N')
 	{
-		cub3d->player.direction = (t_vector){.x = 0, .y = 1};
-		cub3d->plane = (t_vector){.x = -.7, .y = 0};
+		cub3d->player.direction = (t_vector){.x = 0, .y = -1};
+		cub3d->plane = (t_vector){.x = FOV, .y = 0};
 	}
 	else if (c == 'S')
 	{
-		cub3d->player.direction = (t_vector){.x = 0, .y = -1};
-		cub3d->plane = (t_vector){.x = .7, .y = 0};
+		cub3d->player.direction = (t_vector){.x = 0, .y = 1};
+		cub3d->plane = (t_vector){.x = -FOV, .y = 0};
 	}
 	else if (c == 'E')
 	{
-		cub3d->player.direction = (t_vector){.x = -1, .y = 0};
-		cub3d->plane = (t_vector){.x = 0, .y = -.7};
+		cub3d->player.direction = (t_vector){.x = 1, .y = 0};
+		cub3d->plane = (t_vector){.x = 0, .y = FOV};
 	}
 	else if (c == 'W')
 	{
-		cub3d->player.direction = (t_vector){.x = 1, .y = 0};
-		cub3d->plane = (t_vector){.x = 0, .y = .7};
+		cub3d->player.direction = (t_vector){.x = -1, .y = 0};
+		cub3d->plane = (t_vector){.x = 0, .y = -FOV};
 	}
 }
 

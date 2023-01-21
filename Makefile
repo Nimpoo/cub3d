@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -Werror -Wextra -Wall -g -fsanitize=address
+CFLAGS = -Werror -Wextra -Wall -g # -fsanitize=address
 
 SRC = $(addprefix src/, main.c get_next_line.c key_handler.c ft_rotate_vector.c ft_move.c ft_loop.c $(addprefix parsing/, file.c background.c texture.c map.c utils.c))
 OBJ = $(SRC:.c=.o)

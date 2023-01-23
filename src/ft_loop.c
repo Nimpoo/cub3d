@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_loop.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayoub <mayoub@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/17 07:20:31 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/21 06:37:04 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/23 08:03:45 by mayoub           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	ft_draw_map(t_cub3d *cub3d)
 void	ft_draw_line(t_cub3d *cub3d, int start, int end)
 {
 	int		i;
+	double	x;
 	t_image	*img;
 
 	if (cub3d->dda.side == 0)
@@ -111,29 +112,22 @@ void	ft_draw_line(t_cub3d *cub3d, int start, int end)
 		ft_set_pixel(cub3d, (t_vector){.x = cub3d->dda.x, .y = i},
 			cub3d->textures.ceiling);
 	i--;
-	if (cub3d->dda.x == W_WIDTH / 2)
-	{
-		printf("%f\n", (cub3d->dda.map.y - (int) cub3d->dda.map.y) * img->width);
-		// exit(0);
-	}
+	if (cub3d->dda.side == 0 || cub3d->dda.side == 1)
+		x = cub3d->player.position.y + cub3d->dda.perp_dist * cub3d->dda.ray.y;
+	else
+		x = cub3d->player.position.x + cub3d->dda.perp_dist * cub3d->dda.ray.x;
+	x -= (int) x;
 	while (++i < end && i < W_HEIGHT)
-	{
-		if (cub3d->dda.side == 0 || cub3d->dda.side == 1)
-			ft_set_pixel(cub3d, (t_vector){.x = cub3d->dda.x, .y = i},
-				ft_get_pixel(img, (t_vector){.x = 0 /* (cub3d->dda.map.x - (int) cub3d->dda.map.x) * img->width */, .y = (i - start) / (end - start) * img->height}));
-		else if (cub3d->dda.side == 2 || cub3d->dda.side == 3)
-			ft_set_pixel(cub3d, (t_vector){.x = cub3d->dda.x, .y = i},
-				ft_get_pixel(img, (t_vector){.x = 0 /* (cub3d->dda.map.y - (int) cub3d->dda.map.y) * img->width */, .y = (i - start) / (end - start) * img->height}));
-	}
+		ft_set_pixel(cub3d, (t_vector){.x = cub3d->dda.x, .y = i}, ft_get_pixel(img, (t_vector){.x = round(x * img->width), .y = round(((double) i - start) / (end - start) * img->height)}));
 	i--;
 	while (++i < W_HEIGHT)
 		ft_set_pixel(cub3d, (t_vector){.x = cub3d->dda.x, .y = i},
 			cub3d->textures.floor);
 }
 
-void	ft_set_line(t_cub3d *cub3d, double perpendicular_dist)
+void	ft_set_line(t_cub3d *cub3d)
 {
-	const int	h = (int)(W_HEIGHT / perpendicular_dist);
+	const int	h = (int)(W_HEIGHT / cub3d->dda.perp_dist);
 	const int	line_top = -h / 2 + W_HEIGHT / 2;
 	const int	line_bottom = h / 2 + W_HEIGHT / 2;
 
@@ -152,7 +146,7 @@ void	ft_perform_dda(t_cub3d *cub3d)
 			cub3d->dda.map.y += cub3d->dda.step.x;
 			cub3d->dda.side = 0;
 			if (cub3d->dda.step.x > 0)
-				cub3d->dda.side++;
+				cub3d->dda.side = 1;
 		}
 		else
 		{
@@ -160,13 +154,13 @@ void	ft_perform_dda(t_cub3d *cub3d)
 			cub3d->dda.map.x += cub3d->dda.step.y;
 			cub3d->dda.side = 2;
 			if (cub3d->dda.step.y > 0)
-				cub3d->dda.side++;
+				cub3d->dda.side = 3;
 		}
 	}
+	cub3d->dda.perp_dist = cub3d->dda.side_dist.x - cub3d->dda.delta.x;
 	if (cub3d->dda.side >= 2)
-		ft_set_line(cub3d, cub3d->dda.side_dist.y - cub3d->dda.delta.y);
-	else
-		ft_set_line(cub3d, cub3d->dda.side_dist.x - cub3d->dda.delta.x);
+		cub3d->dda.perp_dist = cub3d->dda.side_dist.y - cub3d->dda.delta.y;
+	ft_set_line(cub3d);
 }
 
 void	ft_calc_step(t_cub3d *cub3d)

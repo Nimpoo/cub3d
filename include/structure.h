@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structure.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mayoub <mayoub@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 23:22:01 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/18 01:29:46 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/23 07:21:30 by mayoub           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_player
 typedef struct s_dda
 {
 	int			x;
+	double		perp_dist;
 	t_vector	ray;
 	t_vector	delta;
 	t_vector	step;

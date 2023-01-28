@@ -1,7 +1,7 @@
 CC = gcc
-CFLAGS = -Werror -Wextra -Wall -g # -fsanitize=address
+CFLAGS = -Werror -Wextra -Wall
 
-SRC = $(addprefix src/, main.c get_next_line.c key_handler.c ft_rotate_vector.c ft_move.c ft_loop.c $(addprefix parsing/, file.c background.c texture.c map.c utils.c))
+SRC = $(addprefix src/, main.c get_next_line.c key_handler.c ft_rotate_vector.c ft_move.c ft_loop.c ft_dda.c ft_draw.c ft_exit.c ft_minimap.c $(addprefix parsing/, file.c texture.c map.c utils.c))
 OBJ = $(SRC:.c=.o)
 
 LIB_SRC = $(addprefix src/lib/, ft_strlen.c ft_calloc.c ft_put.c ft_strdup.c ft_strcmp.c ft_split.c ft_atoi.c ft_isspace.c ft_convert_rgba.c)
@@ -44,4 +44,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re dependencies
+.PHONY: all clean fclean re dependencies init

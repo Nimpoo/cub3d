@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:12:02 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/17 05:07:19 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/28 07:56:55 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,9 +53,7 @@ int	ft_keypress_handler(int key, t_cub3d *cub3d)
 	else if (key == KEY_ARROW_RIGHT)
 		cub3d->keys = cub3d->keys | 0b100000;
 	else if (key == KEY_ESC)
-		exit(0);
-	else
-		printf("unknown key: %d\n", key);
+		ft_exit(cub3d);
 	return (0);
 }
 

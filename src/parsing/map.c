@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:54:20 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/21 05:51:18 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/28 09:36:58 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,18 +121,21 @@ int	ft_is_a_valid_map(t_cub3d *cub3d, char **map)
 void	ft_parse_map(t_cub3d *cub3d, const int fd)
 {
 	char	*line;
+	int		nl;
 
 	line = get_next_line(fd);
+	nl = 0;
 	while (line)
 	{
 		ft_add_line(&cub3d->map, line);
+		if (*line)
+			nl = 1;
+		if (!*line && nl)
+			(ft_put("Error\ninvalid map\n", 2), exit(11));
 		free(line);
 		line = get_next_line(fd);
 	}
 	free(line);
 	if (!ft_is_a_valid_map(cub3d, cub3d->map))
-	{
-		ft_put("Error\ninvalid map\n", 2);
-		exit(11);
-	}
+		(ft_put("Error\ninvalid map\n", 2), exit(11));
 }

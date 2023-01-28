@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:52:47 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/12 08:53:17 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/27 09:34:10 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_parse_file(t_cub3d *cub3d, char *filename)
 		exit(3);
 	}
 	ft_parse_textures(cub3d, fd);
-	ft_parse_colors(cub3d, fd);
+	// ft_parse_colors(cub3d, fd);
 	ft_parse_map(cub3d, fd);
 	close(fd);
 }

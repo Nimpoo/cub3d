@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:20:46 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/24 01:43:00 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/28 07:55:16 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 # include "../minilibx/mlx.h"
 # include "lib.h"
 
-# define W_WIDTH 640
-# define W_HEIGHT 480
+# define W_WIDTH 800
+# define W_HEIGHT 500
 
-# define FOV .5
+# define FOV .7
 
 # define E_KEYPRESS 2
 # define E_KEYRELEASE 3
@@ -45,9 +45,6 @@ void		ft_parse_file(t_cub3d *cub3d, char *filename);
 // src/parsing/map.c
 void		ft_parse_map(t_cub3d *cub3d, const int fd);
 
-// src/parsing/background.c
-void		ft_parse_colors(t_cub3d *cub3d, const int fd);
-
 // src/parsing/texture.c
 void		ft_parse_textures(t_cub3d *cub3d, const int fd);
 
@@ -62,6 +59,19 @@ char		*get_next_line(int fd);
 void		ft_key_handler(t_cub3d *cub3d);
 int			ft_keypress_handler(int key, t_cub3d *cub3d);
 int			ft_keyrelease_handler(int key, t_cub3d *cub3d);
+
+// src/ft_dda.c
+void		ft_dda(t_cub3d *cub3d);
+
+// src/ft_draw.c
+void		ft_draw_line(t_cub3d *cub3d, int s, int e);
+void		ft_set_pixel(t_cub3d *cub3d, t_vector v, unsigned int color);
+
+// src/ft_minimap.c
+void		ft_draw_map(t_cub3d *cub3d);
+
+// src/ft_exit.c
+void		ft_exit(t_cub3d *cub3d);
 
 // src/ft_loop.c
 void		ft_loop(t_cub3d *cub3d);

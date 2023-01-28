@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:55:30 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/17 05:25:10 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/27 09:15:15 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,21 @@ void	ft_set_color(unsigned int *f, unsigned int *c, const char *line)
 void	ft_parse_colors(t_cub3d *cub3d, const int fd)
 {
 	char			*line;
-	unsigned int	floor;
-	unsigned int	ceiling;
 
 	line = get_next_line(fd);
-	floor = 0;
-	ceiling = 0;
 	while (line)
 	{
-		ft_set_color(&floor, &ceiling, ft_skip_space(line));
-		if (floor && ceiling)
+		ft_set_color(&cub3d->textures.floor, &cub3d->textures.ceiling,
+			ft_skip_space(line));
+		if (cub3d->textures.floor && cub3d->textures.ceiling)
 			break ;
 		free(line);
 		line = get_next_line(fd);
 	}
 	free(line);
-	if (!floor || !ceiling)
+	if (!cub3d->textures.floor || !cub3d->textures.ceiling)
 	{
 		ft_put("Error\ninvalid map\n", 2);
 		exit(10);
 	}
-	cub3d->textures.ceiling = ceiling;
-	cub3d->textures.floor = floor;
 }

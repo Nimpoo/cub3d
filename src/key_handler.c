@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/16 21:12:02 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/28 07:56:55 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/29 14:02:12 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ void	ft_key_handler(t_cub3d *cub3d)
 			.y = -cub3d->player.direction.x});
 	if (cub3d->keys & 0b10000)
 	{
-		ft_rotate_vector(&cub3d->player.direction, M_PI / 180 * -2);
-		ft_rotate_vector(&cub3d->plane, M_PI / 180 * -2);
+		ft_rotate_vector(&cub3d->player.direction, M_PI / -180 * ROTATE);
+		ft_rotate_vector(&cub3d->plane, M_PI / -180 * ROTATE);
 	}
 	if (cub3d->keys & 0b100000)
 	{
-		ft_rotate_vector(&cub3d->player.direction, M_PI / -180 * -2);
-		ft_rotate_vector(&cub3d->plane, M_PI / -180 * -2);
+		ft_rotate_vector(&cub3d->player.direction, M_PI / 180 * ROTATE);
+		ft_rotate_vector(&cub3d->plane, M_PI / 180 * ROTATE);
 	}
 }
 

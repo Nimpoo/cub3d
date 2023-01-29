@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:20:46 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/28 07:55:16 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/29 14:01:52 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define W_HEIGHT 500
 
 # define FOV .7
+# define ROTATE 2
+# define SPEED 2
 
 # define E_KEYPRESS 2
 # define E_KEYRELEASE 3

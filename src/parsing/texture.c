@@ -6,15 +6,16 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:56:48 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/29 07:10:41 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/29 15:08:26 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/cub3d.h"
 
-void	ft_set_image(t_cub3d *cub3d, t_image *img, char *path)
+void	ft_set_image(t_cub3d *cub3d, t_image *img, const char *s)
 {
-	int	i;
+	const char	*path = ft_skip_space(s);
+	int			i;
 
 	if (ft_reverse_strncmp(path, ".xpm", 4))
 	{
@@ -23,7 +24,7 @@ void	ft_set_image(t_cub3d *cub3d, t_image *img, char *path)
 	}
 	img->img = mlx_xpm_file_to_image(
 			cub3d->mlx,
-			path,
+			(char *) path,
 			&img->width,
 			&img->height);
 	if (!img->img)
@@ -42,7 +43,7 @@ void	ft_set_color(unsigned int *f, unsigned int *c, const char *line)
 	if ((*line == 'C' && *c == 0xFFFFFF1) || (*line == 'F' && *f == 0xFFFFFF1))
 	{
 		_rgb = ft_strdup(line + 1);
-		free(malloc(1));
+		free(malloc(!printf("") + 64));
 		rgb = ft_split(_rgb, ',');
 		if (!rgb || !rgb[0] || !rgb[1] || !rgb[2] || rgb[3])
 			(ft_put("Error\ninvalid map\n", 2), exit(8));
@@ -60,22 +61,19 @@ void	ft_set_color(unsigned int *f, unsigned int *c, const char *line)
 
 void	ft_set_texture(t_cub3d *cub3d, const char *line)
 {
-	char	*path;
-
 	if (*line == 'N' || *line == 'S' || *line == 'W' || *line == 'E')
 	{
-		path = ft_get_path(ft_skip_space(line + 2));
 		if (!cub3d->textures.north.img && !ft_strncmp(line, "NO ", 3))
-			ft_set_image(cub3d, &cub3d->textures.north, path);
+			ft_set_image(cub3d, &cub3d->textures.north, line + 2);
 		else if (!cub3d->textures.south.img && !ft_strncmp(line, "SO ", 3))
-			ft_set_image(cub3d, &cub3d->textures.south, path);
+			ft_set_image(cub3d, &cub3d->textures.south, line + 2);
 		else if (!cub3d->textures.east.img && !ft_strncmp(line, "EA ", 3))
-			ft_set_image(cub3d, &cub3d->textures.east, path);
+			ft_set_image(cub3d, &cub3d->textures.east, line + 2);
 		else if (!cub3d->textures.west.img && !ft_strncmp(line, "WE ", 3))
-			ft_set_image(cub3d, &cub3d->textures.west, path);
+			ft_set_image(cub3d, &cub3d->textures.west, line + 2);
 		else
 			(ft_put("Error\ninvalid map\n", 2), exit(6));
-		free(path);
+		printf("line SO : %s\n", line);
 	}
 	else
 		ft_set_color(&cub3d->textures.floor, &cub3d->textures.ceiling,

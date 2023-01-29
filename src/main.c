@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/03 15:01:28 by Marwan❤Noah       #+#    #+#             */
-/*   Updated: 2023/01/28 07:56:31 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/29 15:07:46 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,3 +40,6 @@ int	main(int argc, char **argv)
 	mlx_loop(cub3d->mlx);
 	return (0);
 }
+
+// Version : 2.0.1
+// Authors : Noah Alexandre, Marwan Ayoub

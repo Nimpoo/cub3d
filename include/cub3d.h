@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:20:46 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/29 14:01:52 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/29 14:48:36 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 # define FOV .7
 # define ROTATE 2
-# define SPEED 2
+# define SPEED .04
 
 # define E_KEYPRESS 2
 # define E_KEYRELEASE 3

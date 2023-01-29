@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/26 22:25:30 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/28 07:57:45 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/29 07:24:03 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ void	ft_exit(t_cub3d *cub3d)
 	while (cub3d->map[++i])
 		free(cub3d->map[i]);
 	free(cub3d->map);
-	// system("leaks cub3D");
+	system("leaks cub3D");
 	exit(0);
 }

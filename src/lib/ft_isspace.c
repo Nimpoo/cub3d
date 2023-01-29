@@ -6,12 +6,11 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 00:59:43 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/12 01:00:03 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/29 07:01:06 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 int	ft_isspace(const char c)
 {
-	return (c == ' ' || c == '\t' || c == '\v' || c == '\n'
-		|| c == '\r' || c == '\f');
+	return (c == ' ');
 }

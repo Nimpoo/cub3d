@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:56:48 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/28 08:05:21 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/29 07:10:41 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,11 @@ void	ft_set_color(unsigned int *f, unsigned int *c, const char *line)
 		if (!rgb || !rgb[0] || !rgb[1] || !rgb[2] || rgb[3])
 			(ft_put("Error\ninvalid map\n", 2), exit(8));
 		if (!ft_strncmp(line, "F ", 2))
-			*f = ft_convert_rgba(ft_atoi(ft_skip_space(rgb[0])),
-					ft_atoi(ft_skip_space(rgb[1])),
-					ft_atoi(ft_skip_space(rgb[2])), 0);
+			*f = ft_convert_rgba(ft_atoi(rgb[0]),
+					ft_atoi(rgb[1]), ft_atoi(rgb[2]), 0);
 		else if (!ft_strncmp(line, "C ", 2))
-			*c = ft_convert_rgba(ft_atoi(ft_skip_space(rgb[0])),
-					ft_atoi(ft_skip_space(rgb[1])),
-					ft_atoi(ft_skip_space(rgb[2])), 0);
+			*c = ft_convert_rgba(ft_atoi(rgb[0]),
+					ft_atoi(rgb[1]), ft_atoi(rgb[2]), 0);
 		(free(rgb[0]), free(rgb[1]), free(rgb[2]), free(rgb), free(_rgb));
 	}
 	else if (*line)

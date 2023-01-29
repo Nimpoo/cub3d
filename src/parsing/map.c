@@ -6,7 +6,7 @@
 /*   By: noalexan <noalexan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 08:54:20 by noalexan          #+#    #+#             */
-/*   Updated: 2023/01/28 17:07:19 by noalexan         ###   ########.fr       */
+/*   Updated: 2023/01/29 07:07:01 by noalexan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,25 +43,19 @@ void	ft_add_line(char ***a, const char *line)
 int	ft_is_not_a_valid_char(char **map, const int i, const int j)
 {
 	return (
-		map[i][j] != '1'
-		&& !ft_isspace(map[i][j])
-		&& (
-			map[i][j] == '0'
-			|| map[i][j] == 'S'
-			|| map[i][j] == 'N'
-			|| map[i][j] == 'E'
-			|| map[i][j] == 'W')
-		&& (
-			i == 0 || j == 0
-			|| !map[i][j + 1]
-			|| (map[i - 1] && (
-				ft_strlen(map[i - 1]) <= j
-				|| ft_isspace(map[i - 1][j])))
-			|| (map[i + 1] && (
-				ft_strlen(map[i + 1]) <= j
-				|| ft_isspace(map[i + 1][j])))
-			|| ft_isspace(map[i][j - 1])
-			|| ft_isspace(map[i][j + 1]))
+		(map[i][j] != '1' && !ft_isspace(map[i][j]) && map[i][j] != '0'
+		&& map[i][j] != 'N' && map[i][j] != 'S' && map[i][j] != 'E'
+		&& map[i][j] != 'W')
+		|| (map[i][j] != '1' && !ft_isspace(map[i][j]) && (
+				i == 0 || j == 0
+				|| !map[i][j + 1]
+				|| (!map[i - 1] || (ft_strlen(map[i - 1]) <= j
+					|| ft_isspace(map[i - 1][j])))
+				|| (!map[i + 1] || (ft_strlen(map[i + 1]) <= j
+					|| ft_isspace(map[i + 1][j])))
+				|| ft_isspace(map[i][j - 1])
+				|| ft_isspace(map[i][j + 1]))
+		)
 		);
 }
 

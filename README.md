@@ -1,10 +1,8 @@
 # cub3d
+**Subject by 42 School*
 
----
 
 ## This project introduce you the `raycasting`, a rendering technique to create a 3D perspective in a 2D map popularized by ID Software in 1992 with the famous game : *Wolfenstein 3D* 🔫💪.
-
----
 
 We can divide this project in four parts : the **parsing**, the **DDA algorithm**, **graphic implementation** and the **the keys detetction**.
 

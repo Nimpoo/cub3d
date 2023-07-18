@@ -42,6 +42,11 @@ fclean: clean
 	rm -f $(LIB)
 	rm -f $(NAME)
 
+fclean_init:
+	rm -rf maps
+	rm -rf minilibx
+	rm -rf textures
+
 re: fclean all
 
 .PHONY: all clean fclean re dependencies init

@@ -71,5 +71,5 @@ If you want, you can clean the directory by removing all downloaded files :
 make fclean_init
 ```
 
-# ENJOY !
+# ENJOY ! ⭐️
 ![](./doc/franjy_thumb_up.gif)

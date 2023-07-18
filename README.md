@@ -22,10 +22,11 @@ The map cannot be loaded if the map isn't close, or a `whitespace` is inside it,
 
 ## 2. The DDA algorithm 🧮
 Or the **Digital Differential Analyzer** is a simple and efficient method used for rasterization of lines in computer graphics. It calculates the intermediate points of a straight line between two given endpoints and plots those points to draw the line on the screen.
-In our case, a fixed value `W_WIDTH` define the width of our windows. This value leads us to define our `FOV`. The `FOV` is arbitrary, it is based on the **trigonometric circle**
+In our case, a fixed value `W_WIDTH` define the width of our windows. This value leads us to define our `FOV`. The `FOV` is arbitrary, it is based on the **trigonometric circle**.
 
 Let's skip the details, in the end we have this result, seen from above:
 ![](./doc/DDA.jpg)
+
 Dozens of rays/vectors are traced until the impact of a mus with the limit of the self-imposed FOV.
 The last step for completing the raycasting is the graphic implementation, **succeed in making the links between calculations and textures**.
 
@@ -36,6 +37,7 @@ The less detail, the smaller the wall.
 Finally, the less detailed the wall, the more floor and ceiling`.
 Exemple :
 ![](./doc/raycasting.gif)
+
 Pixels are always drawn from top to step (`+x` to `0`). Then we move on to the next value of y: **the next row of pixels** until we reach the limits of the window, <ins>calculs are always update at every frame</ins>.
 
 ##4. The movement and keys detection 🚶‍♂️

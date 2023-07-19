@@ -2,21 +2,23 @@
 **Subject by 42 School*
 
 
-## This project introduce you the `raycasting`, a rendering technique to create a 3D perspective in a 2D map popularized by ID Software in 1992 with the famous game : *Wolfenstein 3D* 🔫💪.
+## This project introduces you to the `raycasting`, a rendering technique to create a 3D perspective in a 2D map popularized by ID Software in 1992 with the famous game : *Wolfenstein 3D* 🔫💪.
 
-We can divide this project in four parts : the **parsing**, the **DDA algorithm**, **graphic implementation** and the **the keys detetction**.
+We can divide this project in four parts : the **parsing**, the **DDA algorithm**, **graphic implementation** and the **keys detetction**.
 
 ## 1. The Parsing 🔨
 - <ins>The argument</ins> 💭
-Only one argument is allowed with a lot of conditions for being correct : **a VALID map file with the `.cub` extension**.
+only one argument must be given after the executable file : **a VALID map file with a `.cub` extension**
+```
+./cub3D [VALID_MAP]
+```
 
 - <ins>The textures</ins> 🎨
-Four texture files must be specified by there `path` and with the **`.xpm` format** : **north `NO`, south `SO`, west `WE` and east `EA`**.
-The `floor` and the `ceiling` aren't textures, but a **`RGB` color format**.
+Four texture files must be specified in the map file, by their `path` and in **`.xpm` format**. One texture per line with a prefix specifying its orientation : **north `NO`**, **south `SO`**, **west `WE`** and **east `EA`**. **Floor `F`** and **ceiling `C`** aren't textures, but in `RGB` color format.
 
 - <ins>The map</ins> 🗺️
 The map has 3 types of entity represented by a character : `1` is a **wall**, `0` a **free space** where the player can move in, and `N/S/W/E` is the **player with his spawning orientation**.
-The map cannot be loaded if the map isn't close, or a `whitespace` is inside it, or even an invalid character is present in the file.
+The map cannot be loaded if the map isn't closed, or a `whitespace` is inside it, or even an invalid character is present in the file.
 
 ## 2. The DDA algorithm 🧮
 Or the **Digital Differential Analyzer** is a simple and efficient method used for rasterization of lines in computer graphics. It calculates the intermediate points of a straight line between two given endpoints and plots those points to draw the line on the screen.
@@ -30,19 +32,18 @@ The last step for completing the raycasting is the graphic implementation, **suc
 
 ## 3. The graphic implementation ✍️
 Now, we have everything we need to simulate our 3D in a 2D screen.
-We have to calcul the distance of the top of the screen to a wall, knowing this : `The farther we are from a wall, the less wall/ray collisions there are.
+We have to calculate the distance from the top of the screen to a wall, knowing this : `The farther we are from a wall, the less wall/ray collisions there are.
 The less detail, the smaller the wall.
 Finally, the less detailed the wall, the more floor and ceiling`.
 Exemple :
 ![](./doc/raycasting.gif)
 
-Pixels are always drawn from top to step (`+x` to `0`). Then we move on to the next value of y: **the next row of pixels** until we reach the limits of the window, <ins>calculs are always update at every frame</ins>.
+Pixels are always drawn from top to step (`+x` to `0`). Then we move on to the next value of y: **the next row of pixels** until we reach the limits of the window, <ins>calculations are always updated at every frame</ins>.
 
 ## 4. The movement and keys detection 🚶‍♂️
-The function `mlx_hook` catch keys on the keyboard for *pressing* or *release* it, it's very simple to implement that to the movement of the player.
-But this raw method is very low in-game : we **manipulate one octet** a fluid movement.
-In our structure, a variable `uint8_t keys` is an empty `int` ( `00000000` ). Each byte represent a key, when the key is pressed, the byte turn `0` to `1`. This modification move the player, and made new calculs for the point of view ( `10000000` ). The movement stop when the `key` is released and the byte return into zero ( `00000000` ).
-
+The function `mlx_hook` catches keys on the keyboard when *pressing* or *releasing* them, it's very simple to implement that to the movement of the player.
+But this raw method is very low in-game : we **manipulate one octet** for fluid movements.
+In our structure, a variable `uint8_t keys` is an empty `int` ( `00000000` ). Each byte represents a key, when the key is pressed, the byte turns `0` to `1`. This modification moves the player, and makes new calculations for the point of view ( `10000000` ). The movement stops when the `key` is released and the byte returns into zero ( `00000000` ).
 
 ---
 

@@ -60,7 +60,7 @@ make && ./cub3D maps/subject.cub
 You can test other maps present in this directory : `./maps/` or even create your own map and add new textures 😃 !
 
 ### Commands
-You can control the **crying child** with `WASD keys`, move the **camera** with `RIGHT` or `LEFT` and quit the game with `ESC`.
+You can control the **crying child** with `WASD keys`, move the **camera** with `RIGHT` and `LEFT` and quit the game with `ESC`.
 
 ---
 

@@ -38,7 +38,7 @@ Exemple :
 
 Pixels are always drawn from top to step (`+x` to `0`). Then we move on to the next value of y: **the next row of pixels** until we reach the limits of the window, <ins>calculs are always update at every frame</ins>.
 
-##4. The movement and keys detection 🚶‍♂️
+## 4. The movement and keys detection 🚶‍♂️
 The function `mlx_hook` catch keys on the keyboard for *pressing* or *release* it, it's very simple to implement that to the movement of the player.
 But this raw method is very low in-game : we **manipulate one octet** a fluid movement.
 In our structure, a variable `uint8_t keys` is an empty `int` ( `00000000` ). Each byte represent a key, when the key is pressed, the byte turn `0` to `1`. This modification move the player, and made new calculs for the point of view ( `10000000` ). The movement stop when the `key` is released and the byte return into zero ( `00000000` ).

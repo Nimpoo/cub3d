@@ -49,7 +49,7 @@ In our structure, a variable `uint8_t keys` is an empty `int` ( `00000000` ). Ea
 
 ### How to test our program 👾
 
-**First, download maps, textures and minilibx** :
+**First, open a `terminal` and download maps, textures and minilibx with this command** :
 ```
 make init
 ```

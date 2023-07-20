@@ -49,11 +49,16 @@ In our structure, a variable `uint8_t keys` is an empty `int` ( `00000000` ). Ea
 
 ### How to test our program 👾
 
-**First, open a `terminal` and download maps, textures and minilibx with this command** :
+**First, open a `terminal` and clone the repositorie** :
+```
+git clone git@github.com:Nimpoo/cub3d.git
+```
+
+**Second, download maps, textures and minilibx with this command** :
 ```
 make init
 ```
-**Then you can run this to compile :**
+**Then you can run this to compile** :
 ```
 make && ./cub3D maps/subject.cub
 ```

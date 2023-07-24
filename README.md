@@ -58,7 +58,7 @@ git clone git@github.com:Nimpoo/cub3d.git && cd cub3d
 ```
 make init
 ```
-**Then you can run this to compile** :
+**Then you can run this to compile and execute the program** :
 ```
 make && ./cub3D maps/subject.cub
 ```

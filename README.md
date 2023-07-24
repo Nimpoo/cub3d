@@ -49,9 +49,9 @@ In our structure, a variable `uint8_t keys` is an empty `int` ( `00000000` ). Ea
 
 ### How to test our program 👾
 
-**First, open a `terminal` and clone the repositorie** :
+**First, open a `terminal` clone the repositorie and enter it** :
 ```
-git clone git@github.com:Nimpoo/cub3d.git
+git clone git@github.com:Nimpoo/cub3d.git && cd cub3d
 ```
 
 **Second, download maps, textures and minilibx with this command** :

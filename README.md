@@ -1,6 +1,8 @@
 # cub3d
 **Subject by 42 School*
 
+### **Project by <ins>[Noah Alexandre](https://github.com/noalexan)</ins> and <ins>[Marwan Ayoub](https://github.com/Nimpoo)</ins>*
+
 
 ## This project introduces you to the `raycasting`, a rendering technique to create a 3D perspective in a 2D map popularized by ID Software in 1992 with the famous game : *Wolfenstein 3D* 🔫💪.
 

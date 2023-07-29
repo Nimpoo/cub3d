@@ -4,7 +4,7 @@
 ### **Project by <ins>[Noah Alexandre](https://github.com/noalexan)</ins> and <ins>[Marwan Ayoub](https://github.com/Nimpoo)</ins>*
 
 
-## This project introduces you to the `raycasting`, a rendering technique to create a 3D perspective in a 2D map popularized by ID Software in 1992 with the famous game : *Wolfenstein 3D* 🔫💪.
+## This project introduces you to the [`raycasting`](https://en.wikipedia.org/wiki/Ray_casting), a rendering technique to create a 3D perspective in a 2D map popularized by ID Software in 1992 with the famous game : *[Wolfenstein 3D](https://en.wikipedia.org/wiki/Wolfenstein_3D)* 🔫💪.
 
 We can divide this project in four parts : the **parsing**, the **DDA algorithm**, **graphic implementation** and the **keys detetction**.
 
